@@ -1,0 +1,19 @@
+The server should return the decoded using Angular code
+
+setXAuthorizationToken(client){
+    let requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/x-www-form-urlencoded');
+    this.http.post(client.clientURL + "oauth/token", 'grant_type=password&client_id=toto&client_secret=sec&' +  'username=' + client.username
+    + '&password=' + client.password, {
+      headers: requestHeader
+    }).map(res=>res.json())
+    .subscribe((token) =>{
+      if(!token.access_token){
+          return;
+      }
+      else{
+       var decompressToken = LZString.decompressFromEncodedURIComponent(token.access_token);
+       console.log(decompressToken);
+}
+    });
+    }
